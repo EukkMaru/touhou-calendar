@@ -37,13 +37,14 @@ function renderCalendar(month, year) {
         cell.className = "day";
 
         const isToday =
-        year === now.getFullYear() &&
-        month === now.getMonth() &&
-        day === now.getDate();
+            year === now.getFullYear() &&
+            month === now.getMonth() &&
+            day === now.getDate();
 
         if (isToday) {
-        cell.classList.add("today");
+            cell.classList.add("today");
         }
+        cell.textContent = day;
 
         const key = `${month + 1}월 ${day}일`;
         if (eventsByDate[key]) {
@@ -54,18 +55,18 @@ function renderCalendar(month, year) {
                 const entry = document.createElement("div");
                 entry.className = "tooltip-entry";
                 if (event.recurring) entry.classList.add("recurring");
-                
+
                 const name = document.createElement("div");
                 name.className = "tooltip-name";
                 name.textContent = event.name;
-                
+
                 const char = document.createElement("div");
                 char.className = "tooltip-char";
                 char.innerHTML = event.char.replace(/\n/g, "<br>");
 
                 entry.appendChild(name);
                 entry.appendChild(char);
-                tooltip.appendChild(entry);                
+                tooltip.appendChild(entry);
             });
 
             const markerContainer = document.createElement("div");
@@ -142,18 +143,16 @@ function loadRepeatingEvents() {
 
 function injectLastDayEvent() {
     for (let m = 1; m <= 12; m++) {
-      const daysInMonth = new Date(currentYear, m, 0).getDate();
-      const key = `${m}월 ${daysInMonth}일`;
-      if (!eventsByDate[key]) eventsByDate[key] = [];
-  
-      eventsByDate[key].push({
-        name: "달자매의 날",
-        char: "와타츠키노 토요히메 & 와타츠키노 요리히메\n무게츠 & 겐게츠",
-        recurring: true
-      });
-    }
-  }
-  
+        const daysInMonth = new Date(currentYear, m, 0).getDate();
+        const key = `${m}월 ${daysInMonth}일`;
+        if (!eventsByDate[key]) eventsByDate[key] = [];
 
+        eventsByDate[key].push({
+            name: "달자매의 날",
+            char: "와타츠키노 토요히메 & 와타츠키노 요리히메\n무게츠 & 겐게츠",
+            recurring: true
+        });
+    }
+}
 
 loadEvents();
