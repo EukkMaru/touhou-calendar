@@ -35,7 +35,15 @@ function renderCalendar(month, year) {
     for (let day = 1; day <= daysInMonth; day++) {
         const cell = document.createElement("div");
         cell.className = "day";
-        cell.textContent = day;
+
+        const isToday =
+        year === now.getFullYear() &&
+        month === now.getMonth() &&
+        day === now.getDate();
+
+        if (isToday) {
+        cell.classList.add("today");
+        }
 
         const key = `${month + 1}월 ${day}일`;
         if (eventsByDate[key]) {
